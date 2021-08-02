@@ -1,0 +1,6 @@
+# Visul studio files and folders
+*.sln
+*.filters
+*.user
+*.vcxproj
+.vs
