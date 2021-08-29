@@ -13,7 +13,7 @@ outputDir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 	
 project "Mellow"
 	location "Mellow"
-	kind "staticlib"
+	kind "StaticLib"
 	language "C++"
 	cppdialect "C++17"
 	staticruntime "on"
@@ -21,9 +21,16 @@ project "Mellow"
 	targetdir ("bin/" .. outputDir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputDir .. "/%{prj.name}")
 	
+	pchheader "mwpch.h"
+	pchsource "Mellow/src/mwpch.cpp"
+	
 	files {
-		"%{prj.name}/src/*.h",
-		"%{prj.name}/src/*.cpp"
+		"%{prj.name}/src/**.h",
+		"%{prj.name}/src/**.cpp"
+	}
+	
+	defines {
+		"_CRT_SECURE_NO_WARNINGS"
 	}
 	
 	includedirs {
@@ -32,6 +39,11 @@ project "Mellow"
 	
 	filter "system:windows"
 		systemversion "latest"
+		
+		defines {
+			"MW_BUILD_DLL",
+			"GLFW_INCLUDE_NONE"
+		}
 		
 	filter "configurations:Debug"
 		defines "MW_DEBUG"
@@ -50,18 +62,25 @@ project "Mellow"
 
 project "Sandbox"
 	location "Sandbox"
-	kind "staticlib"
+	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++17"
 	staticruntime "on"
 	
+	targetdir ("bin/" .. outputDir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputDir .. "/%{prj.name}")
+	
 	files {
-		"%{prj.name}/src/*.h",
-		"%{prj.name}/src/*.cpp"
+		"%{prj.name}/src/**.h",
+		"%{prj.name}/src/**.cpp"
 	}
 	
 	includedirs {
-		"%{prj.name}/src"
+		"Mellow/src"
+	}
+	
+	links {
+		"Mellow"
 	}
 	
 	filter "system:windows"

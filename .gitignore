@@ -4,3 +4,7 @@
 *.user
 *.vcxproj
 .vs
+
+# Bin files and folders
+**/bin/
+bin-int/
