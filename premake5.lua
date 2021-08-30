@@ -10,7 +10,11 @@ workspace "Mellow"
 	
 -- Output directory for a given workspace
 outputDir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
-	
+
+-- Includes in a lookup
+includeDirs = {}
+includeDirs["spdlog"] = "Mellow/vendor/spdlog/include/"
+
 project "Mellow"
 	location "Mellow"
 	kind "StaticLib"
@@ -34,7 +38,8 @@ project "Mellow"
 	}
 	
 	includedirs {
-		"%{prj.name}/src"
+		"%{prj.name}/src",
+		"%{includeDirs.spdlog}"
 	}
 	
 	filter "system:windows"
@@ -76,7 +81,8 @@ project "Sandbox"
 	}
 	
 	includedirs {
-		"Mellow/src"
+		"Mellow/src",
+		"%{includeDirs.spdlog}"
 	}
 	
 	links {

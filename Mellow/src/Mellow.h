@@ -3,8 +3,8 @@
 #ifndef MELLOW_H
 #define MELLOW_H
 
-// Application Creation Headers
-
+// Application-related headers
 #include "Mellow/Base/Application.h"
+#include "Mellow/Base/Log.h"
 
 #endif
