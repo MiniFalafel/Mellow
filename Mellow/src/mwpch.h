@@ -1,4 +1,8 @@
 #pragma once
 
-#include <iostream>
 #include <memory>
+
+#include <iostream>
+#include <ostream>
+#include <sstream>
+#include <string>

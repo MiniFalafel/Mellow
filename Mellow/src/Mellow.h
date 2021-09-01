@@ -5,6 +5,10 @@
 
 // Application-related headers
 #include "Mellow/Base/Application.h"
+#include "Mellow/Events/ApplicationEvent.h"
+#include "Mellow/Events/MouseEvent.h"
+#include "Mellow/Events/KeyEvent.h"
+
 #include "Mellow/Base/Log.h"
 
 #endif

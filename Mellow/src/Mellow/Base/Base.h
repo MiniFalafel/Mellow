@@ -11,6 +11,8 @@
 	#endif
 #endif
 
+#define HZ_BIND_EVENT_FN(fn) [this](auto&&... args) -> decltype(auto) { return this->fn(std::forward<decltype(args)>(args)...); }
+
 namespace Mellow {
 
 	template<typename T>
@@ -28,3 +30,6 @@ namespace Mellow {
 	}
 
 }
+
+// Bit Shifting
+#define BSHIFT(x) 1 << x

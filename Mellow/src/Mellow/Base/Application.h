@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Mellow/Events/Event.h"
+#include "Mellow/Events/KeyEvent.h"
+
 namespace Mellow {
 	
 	class Application {

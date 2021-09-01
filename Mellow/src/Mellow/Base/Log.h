@@ -3,6 +3,7 @@
 #include "Mellow/Base/Base.h"
 
 #include <spdlog/spdlog.h>
+#include <spdlog/fmt/ostr.h>
 
 namespace Mellow {
 	
@@ -25,14 +26,14 @@ namespace Mellow {
 
 // Logging macros
 // Core
-#define MW_CORE_TRACE(...)    ::Mellow::Log::GetCoreLogger()->trace(__VA_ARGS__);
-#define MW_CORE_INFO(...)     ::Mellow::Log::GetCoreLogger()->info(__VA_ARGS__);
-#define MW_CORE_WARN(...)     ::Mellow::Log::GetCoreLogger()->warn(__VA_ARGS__);
-#define MW_CORE_ERROR(...)    ::Mellow::Log::GetCoreLogger()->error(__VA_ARGS__);
-#define MW_CORE_CRITICAL(...) ::Mellow::Log::GetCoreLogger()->critical(__VA_ARGS__);
+#define MW_CORE_TRACE(...)    ::Mellow::Log::GetCoreLogger()->trace(__VA_ARGS__)
+#define MW_CORE_INFO(...)     ::Mellow::Log::GetCoreLogger()->info(__VA_ARGS__)
+#define MW_CORE_WARN(...)     ::Mellow::Log::GetCoreLogger()->warn(__VA_ARGS__)
+#define MW_CORE_ERROR(...)    ::Mellow::Log::GetCoreLogger()->error(__VA_ARGS__)
+#define MW_CORE_CRITICAL(...) ::Mellow::Log::GetCoreLogger()->critical(__VA_ARGS__)
 // Client
-#define MW_TRACE(...)    ::Mellow::Log::GetClientLogger()->trace(__VA_ARGS__);
-#define MW_INFO(...)     ::Mellow::Log::GetClientLogger()->info(__VA_ARGS__);
-#define MW_WARN(...)     ::Mellow::Log::GetClientLogger()->warn(__VA_ARGS__);
-#define MW_ERROR(...)    ::Mellow::Log::GetClientLogger()->error(__VA_ARGS__);
-#define MW_CRITICAL(...) ::Mellow::Log::GetClientLogger()->critical(__VA_ARGS__);
+#define MW_TRACE(...)         ::Mellow::Log::GetClientLogger()->trace(__VA_ARGS__)
+#define MW_INFO(...)          ::Mellow::Log::GetClientLogger()->info(__VA_ARGS__)
+#define MW_WARN(...)          ::Mellow::Log::GetClientLogger()->warn(__VA_ARGS__)
+#define MW_ERROR(...)         ::Mellow::Log::GetClientLogger()->error(__VA_ARGS__)
+#define MW_CRITICAL(...)      ::Mellow::Log::GetClientLogger()->critical(__VA_ARGS__)
