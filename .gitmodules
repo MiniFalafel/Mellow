@@ -1,6 +1,6 @@
 [submodule "Mellow/vendor/spdlog"]
 	path = Mellow/vendor/spdlog
 	url = https://github.com/gabime/spdlog
-[submodule "Mellow/vendor/glfw"]
-	path = Mellow/vendor/glfw
+[submodule "Mellow/vendor/GLFW"]
+	path = Mellow/vendor/GLFW
 	url = https://github.com/SandyFalafel/glfw
