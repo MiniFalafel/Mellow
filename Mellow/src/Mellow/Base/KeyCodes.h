@@ -2,266 +2,141 @@
 
 namespace Mellow {
 	
-	typedef enum class KeyCode : uint16_t {
+	using KeyCode = uint16_t;
+	// TODO: Create a keycode conversion system for when we have more than one window class
+	namespace Key {
+		enum : KeyCode {
 
-		Space = 32,
-		Apostrophe = 39,
-		Comma = 44,
-		Minus = 45,
-		Period = 46,
-		Slash = 47,
+			Space = 32,
+			Apostrophe = 39,
+			Comma = 44,
+			Minus = 45,
+			Period = 46,
+			Slash = 47,
 
-		D0 = 48,
-		D1 = 49,
-		D2 = 50,
-		D3 = 51,
-		D4 = 52,
-		D5 = 53,
-		D6 = 54,
-		D7 = 55,
-		D8 = 56,
-		D9 = 57,
+			D0 = 48,
+			D1 = 49,
+			D2 = 50,
+			D3 = 51,
+			D4 = 52,
+			D5 = 53,
+			D6 = 54,
+			D7 = 55,
+			D8 = 56,
+			D9 = 57,
 
-		Semicolon = 59,
-		Equal = 61,
+			Semicolon = 59,
+			Equal = 61,
 
-		A = 65,
-		B = 66,
-		C = 67,
-		D = 68,
-		E = 69,
-		F = 70,
-		G = 71,
-		H = 72,
-		I = 73,
-		J = 74,
-		K = 75,
-		L = 76,
-		M = 77,
-		N = 78,
-		O = 79,
-		P = 80,
-		Q = 81,
-		R = 82,
-		S = 83,
-		T = 84,
-		U = 85,
-		V = 86,
-		W = 87,
-		X = 88,
-		Y = 89,
-		Z = 90,
+			A = 65,
+			B = 66,
+			C = 67,
+			D = 68,
+			E = 69,
+			F = 70,
+			G = 71,
+			H = 72,
+			I = 73,
+			J = 74,
+			K = 75,
+			L = 76,
+			M = 77,
+			N = 78,
+			O = 79,
+			P = 80,
+			Q = 81,
+			R = 82,
+			S = 83,
+			T = 84,
+			U = 85,
+			V = 86,
+			W = 87,
+			X = 88,
+			Y = 89,
+			Z = 90,
 
-		LeftBracket = 91,
-		Backslash = 92,
-		RightBracket = 93,
-		GraveAccent = 96,
-		World1 = 161,
-		World2 = 162,
+			LeftBracket = 91,
+			Backslash = 92,
+			RightBracket = 93,
+			GraveAccent = 96,
+			World1 = 161,
+			World2 = 162,
 
-		Escape = 256,
-		Enter = 257,
-		Tab = 258,
-		Backspace = 259,
-		Insert = 260,
-		Delete = 261,
-		Right = 262,
-		Left = 263,
-		Down = 264,
-		Up = 265,
+			Escape = 256,
+			Enter = 257,
+			Tab = 258,
+			Backspace = 259,
+			Insert = 260,
+			Delete = 261,
+			Right = 262,
+			Left = 263,
+			Down = 264,
+			Up = 265,
 
-		PageUp = 266,
-		PageDown = 267,
-		Home = 268,
-		End = 269,
-		CapsLock = 280,
-		ScrollLock = 281,
-		NumLock = 282,
-		PrintScreen = 283,
-		Pause = 284,
+			PageUp = 266,
+			PageDown = 267,
+			Home = 268,
+			End = 269,
+			CapsLock = 280,
+			ScrollLock = 281,
+			NumLock = 282,
+			PrintScreen = 283,
+			Pause = 284,
 
-		F1 = 290,
-		F2 = 291,
-		F3 = 292,
-		F4 = 293,
-		F5 = 294,
-		F6 = 295,
-		F7 = 296,
-		F8 = 297,
-		F9 = 298,
-		F10 = 299,
-		F11 = 300,
-		F12 = 301,
-		F13 = 302,
-		F14 = 303,
-		F15 = 304,
-		F16 = 305,
-		F17 = 306,
-		F18 = 307,
-		F19 = 308,
-		F20 = 309,
-		F21 = 310,
-		F22 = 311,
-		F23 = 312,
-		F24 = 313,
-		F25 = 314,
-		KP0 = 320,
-		KP1 = 321,
-		KP2 = 322,
-		KP3 = 323,
-		KP4 = 324,
-		KP5 = 325,
-		KP6 = 326,
-		KP7 = 327,
-		KP8 = 328,
-		KP9 = 329,
+			F1 = 290,
+			F2 = 291,
+			F3 = 292,
+			F4 = 293,
+			F5 = 294,
+			F6 = 295,
+			F7 = 296,
+			F8 = 297,
+			F9 = 298,
+			F10 = 299,
+			F11 = 300,
+			F12 = 301,
+			F13 = 302,
+			F14 = 303,
+			F15 = 304,
+			F16 = 305,
+			F17 = 306,
+			F18 = 307,
+			F19 = 308,
+			F20 = 309,
+			F21 = 310,
+			F22 = 311,
+			F23 = 312,
+			F24 = 313,
+			F25 = 314,
+			KP0 = 320,
+			KP1 = 321,
+			KP2 = 322,
+			KP3 = 323,
+			KP4 = 324,
+			KP5 = 325,
+			KP6 = 326,
+			KP7 = 327,
+			KP8 = 328,
+			KP9 = 329,
 
-		KPDecimal = 330,
-		KPDivide = 331,
-		KPMultiply = 332,
-		KPSubtract = 333,
-		KPAdd = 334,
-		KPEnter = 335,
-		KPEqual = 336,
+			KPDecimal = 330,
+			KPDivide = 331,
+			KPMultiply = 332,
+			KPSubtract = 333,
+			KPAdd = 334,
+			KPEnter = 335,
+			KPEqual = 336,
 
-		LeftShift = 340,
-		LeftControl = 341,
-		LeftAlt = 342,
-		LeftSuper = 343,
-		RightShift = 344,
-		RightControl = 345,
-		RightAlt = 346,
-		RightSuper = 347,
-		Menu = 348,
+			LeftShift = 340,
+			LeftControl = 341,
+			LeftAlt = 342,
+			LeftSuper = 343,
+			RightShift = 344,
+			RightControl = 345,
+			RightAlt = 346,
+			RightSuper = 347,
+			Menu = 348,
 
-	} Key;
-
-	inline std::ostream& operator<<(std::ostream& os, KeyCode keyCode) {
-		os << static_cast<int32_t>(keyCode);
-		return os;
+		};
 	}
-
 }
-
-#define MW_KEY_SPACE              ::Mellow::KeyCode::Space
-#define MW_KEY_APOSTROPHE         ::Mellow::KeyCode::Apostrophe
-#define MW_KEY_COMMA              ::Mellow::KeyCode::Comma
-#define MW_KEY_MINUS              ::Mellow::KeyCode::Minus
-#define MW_KEY_PERIOD             ::Mellow::KeyCode::Period
-#define MW_KEY_SLASH              ::Mellow::KeyCode::Slash
-#define MW_KEY_0                  ::Mellow::KeyCode::D0
-#define MW_KEY_1                  ::Mellow::KeyCode::D1
-#define MW_KEY_2                  ::Mellow::KeyCode::D2
-#define MW_KEY_3                  ::Mellow::KeyCode::D3
-#define MW_KEY_4                  ::Mellow::KeyCode::D4
-#define MW_KEY_5                  ::Mellow::KeyCode::D5
-#define MW_KEY_6                  ::Mellow::KeyCode::D6
-#define MW_KEY_7                  ::Mellow::KeyCode::D7
-#define MW_KEY_8                  ::Mellow::KeyCode::D8
-#define MW_KEY_9                  ::Mellow::KeyCode::D9
-#define MW_KEY_SEMICOLON          ::Mellow::KeyCode::Semicolon
-#define MW_KEY_EQUAL              ::Mellow::KeyCode::Equal
-#define MW_KEY_A                  ::Mellow::KeyCode::A
-#define MW_KEY_B                  ::Mellow::KeyCode::B
-#define MW_KEY_C                  ::Mellow::KeyCode::C
-#define MW_KEY_D                  ::Mellow::KeyCode::D
-#define MW_KEY_E                  ::Mellow::KeyCode::E
-#define MW_KEY_F                  ::Mellow::KeyCode::F
-#define MW_KEY_G                  ::Mellow::KeyCode::G
-#define MW_KEY_H                  ::Mellow::KeyCode::H
-#define MW_KEY_I                  ::Mellow::KeyCode::I
-#define MW_KEY_J                  ::Mellow::KeyCode::J
-#define MW_KEY_K                  ::Mellow::KeyCode::K
-#define MW_KEY_L                  ::Mellow::KeyCode::L
-#define MW_KEY_M                  ::Mellow::KeyCode::M
-#define MW_KEY_N                  ::Mellow::KeyCode::N
-#define MW_KEY_O                  ::Mellow::KeyCode::O
-#define MW_KEY_P                  ::Mellow::KeyCode::P
-#define MW_KEY_Q                  ::Mellow::KeyCode::Q
-#define MW_KEY_R                  ::Mellow::KeyCode::R
-#define MW_KEY_S                  ::Mellow::KeyCode::S
-#define MW_KEY_T                  ::Mellow::KeyCode::T
-#define MW_KEY_U                  ::Mellow::KeyCode::U
-#define MW_KEY_V                  ::Mellow::KeyCode::V
-#define MW_KEY_W                  ::Mellow::KeyCode::W
-#define MW_KEY_X                  ::Mellow::KeyCode::X
-#define MW_KEY_Y                  ::Mellow::KeyCode::Y
-#define MW_KEY_Z                  ::Mellow::KeyCode::Z
-#define MW_KEY_LEFT_BRACKET       ::Mellow::KeyCode::LeftBracket
-#define MW_KEY_BACKSLASH          ::Mellow::KeyCode::Backslash
-#define MW_KEY_RIGHT_BRACKET      ::Mellow::KeyCode::RightBracket
-#define MW_KEY_GRAVE_ACCENT       ::Mellow::KeyCode::GraveAccent
-#define MW_KEY_WORLD_1            ::Mellow::KeyCode::World1
-#define MW_KEY_WORLD_2            ::Mellow::KeyCode::World2
-
-/* FunctMPkeys */
-#define MW_KEY_ESCAPE             ::Mellow::KeyCode::Escape
-#define MW_KEY_ENTER              ::Mellow::KeyCode::Enter
-#define MW_KEY_TAB                ::Mellow::KeyCode::Tab
-#define MW_KEY_BACKSPACE          ::Mellow::KeyCode::Backspace
-#define MW_KEY_INSERT             ::Mellow::KeyCode::Insert
-#define MW_KEY_DELETE             ::Mellow::KeyCode::Delete
-#define MW_KEY_RIGHT              ::Mellow::KeyCode::Right
-#define MW_KEY_LEFT               ::Mellow::KeyCode::Left
-#define MW_KEY_DOWN               ::Mellow::KeyCode::Down
-#define MW_KEY_UP                 ::Mellow::KeyCode::Up
-#define MW_KEY_PAGE_UP            ::Mellow::KeyCode::PageUp
-#define MW_KEY_PAGE_DOWN          ::Mellow::KeyCode::PageDown
-#define MW_KEY_HOME               ::Mellow::KeyCode::Home
-#define MW_KEY_END                ::Mellow::KeyCode::End
-#define MW_KEY_CAPS_LOCK          ::Mellow::KeyCode::CapsLock
-#define MW_KEY_SCROLL_LOCK        ::Mellow::KeyCode::ScrollLock
-#define MW_KEY_NUM_LOCK           ::Mellow::KeyCode::NumLock
-#define MW_KEY_PRINT_SCREEN       ::Mellow::KeyCode::PrintScreen
-#define MW_KEY_PAUSE              ::Mellow::KeyCode::Pause
-#define MW_KEY_F1                 ::Mellow::KeyCode::F1
-#define MW_KEY_F2                 ::Mellow::KeyCode::F2
-#define MW_KEY_F3                 ::Mellow::KeyCode::F3
-#define MW_KEY_F4                 ::Mellow::KeyCode::F4
-#define MW_KEY_F5                 ::Mellow::KeyCode::F5
-#define MW_KEY_F6                 ::Mellow::KeyCode::F6
-#define MW_KEY_F7                 ::Mellow::KeyCode::F7
-#define MW_KEY_F8                 ::Mellow::KeyCode::F8
-#define MW_KEY_F9                 ::Mellow::KeyCode::F9
-#define MW_KEY_F10                ::Mellow::KeyCode::F10
-#define MW_KEY_F11                ::Mellow::KeyCode::F11
-#define MW_KEY_F12                ::Mellow::KeyCode::F12
-#define MW_KEY_F13                ::Mellow::KeyCode::F13
-#define MW_KEY_F14                ::Mellow::KeyCode::F14
-#define MW_KEY_F15                ::Mellow::KeyCode::F15
-#define MW_KEY_F16                ::Mellow::KeyCode::F16
-#define MW_KEY_F17                ::Mellow::KeyCode::F17
-#define MW_KEY_F18                ::Mellow::KeyCode::F18
-#define MW_KEY_F19                ::Mellow::KeyCode::F19
-#define MW_KEY_F20                ::Mellow::KeyCode::F20
-#define MW_KEY_F21                ::Mellow::KeyCode::F21
-#define MW_KEY_F22                ::Mellow::KeyCode::F22
-#define MW_KEY_F23                ::Mellow::KeyCode::F23
-#define MW_KEY_F24                ::Mellow::KeyCode::F24
-#define MW_KEY_F25                ::Mellow::KeyCode::F25
-#define MW_KEY_KP_0               ::Mellow::KeyCode::KP0
-#define MW_KEY_KP_1               ::Mellow::KeyCode::KP1
-#define MW_KEY_KP_2               ::Mellow::KeyCode::KP2
-#define MW_KEY_KP_3               ::Mellow::KeyCode::KP3
-#define MW_KEY_KP_4               ::Mellow::KeyCode::KP4
-#define MW_KEY_KP_5               ::Mellow::KeyCode::KP5
-#define MW_KEY_KP_6               ::Mellow::KeyCode::KP6
-#define MW_KEY_KP_7               ::Mellow::KeyCode::KP7
-#define MW_KEY_KP_8               ::Mellow::KeyCode::KP8
-#define MW_KEY_KP_9               ::Mellow::KeyCode::KP9
-#define MW_KEY_KP_DECIMAL         ::Mellow::KeyCode::KPDecimal
-#define MW_KEY_KP_DIVIDE          ::Mellow::KeyCode::KPDivide
-#define MW_KEY_KP_MULTIPLY        ::Mellow::KeyCode::KPMultiply
-#define MW_KEY_KP_SUBTRACT        ::Mellow::KeyCode::KPSubtract
-#define MW_KEY_KP_ADD             ::Mellow::KeyCode::KPAdd
-#define MW_KEY_KP_ENTER           ::Mellow::KeyCode::KPEnter
-#define MW_KEY_KP_EQUAL           ::Mellow::KeyCode::KPEqual
-#define MW_KEY_LEFT_SHIFT         ::Mellow::KeyCode::LeftShift
-#define MW_KEY_LEFT_CONTROL       ::Mellow::KeyCode::LeftControl
-#define MW_KEY_LEFT_ALT           ::Mellow::KeyCode::LeftAlt
-#define MW_KEY_LEFT_SUPER         ::Mellow::KeyCode::LeftSuper
-#define MW_KEY_RIGHT_SHIFT        ::Mellow::KeyCode::RightShift
-#define MW_KEY_RIGHT_CONTROL      ::Mellow::KeyCode::RightControl
-#define MW_KEY_RIGHT_ALT          ::Mellow::KeyCode::RightAlt
-#define MW_KEY_RIGHT_SUPER        ::Mellow::KeyCode::RightSuper
-#define MW_KEY_MENU               ::Mellow::KeyCode::Menu

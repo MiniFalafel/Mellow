@@ -11,7 +11,20 @@
 	#endif
 #endif
 
-#define HZ_BIND_EVENT_FN(fn) [this](auto&&... args) -> decltype(auto) { return this->fn(std::forward<decltype(args)>(args)...); }
+#define MW_BIND_EVENT_FN(fn) [this](auto&&... args) -> decltype(auto) { return this->fn(std::forward<decltype(args)>(args)...); }
+
+// Assertions
+#ifdef MW_DEBUG
+	#define MW_ENABLE_ASSERTS
+#endif
+
+#ifdef MW_ENABLE_ASSERTS
+	#define MW_CORE_ASSERT(x, ...) {if(!x) { MW_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+	#define MW_ASSERT(x, ...) {if(!x) { MW_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+#else
+	#define MW_CORE_ASSERT(x, ...)
+	#define MW_ASSERT(x, ...)
+#endif
 
 namespace Mellow {
 

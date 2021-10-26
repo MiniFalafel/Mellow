@@ -23,7 +23,7 @@ namespace Mellow {
 		int m_RepeatCount;
 
 	public:
-		KeyPressedEvent(KeyCode keyCode, int repeatCount) : KeyEvent(keyCode), m_RepeatCount(repeatCount) {}
+		KeyPressedEvent(const KeyCode keyCode, int repeatCount) : KeyEvent(keyCode), m_RepeatCount(repeatCount) {}
 
 		inline int GetRepeatCount() const { return m_RepeatCount; }
 
@@ -39,7 +39,7 @@ namespace Mellow {
 	class KeyReleasedEvent : public KeyEvent {
 
 	public:
-		KeyReleasedEvent(KeyCode keyCode) : KeyEvent(keyCode) {}
+		KeyReleasedEvent(const KeyCode keyCode) : KeyEvent(keyCode) {}
 
 		std::string ToString() const override {
 			std::stringstream ss;
@@ -53,7 +53,7 @@ namespace Mellow {
 	class KeyTypedEvent : public KeyEvent {
 
 	public:
-		KeyTypedEvent(KeyCode keyCode) : KeyEvent(keyCode) {}
+		KeyTypedEvent(const KeyCode keyCode) : KeyEvent(keyCode) {}
 
 		std::string ToString() const override {
 			std::stringstream ss;
