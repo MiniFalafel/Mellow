@@ -2,3 +2,5 @@
 	path = Mellow/vendor/spdlog
 	url = https://github.com/gabime/spdlog
 [submodule "Mellow/vendor/GLFW"]
+	path = Mellow/vendor/GLFW
+	url = https://www.github.com/SandyFalafel/glfw.git
