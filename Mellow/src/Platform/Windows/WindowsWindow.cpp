@@ -5,6 +5,8 @@
 #include "Mellow/Events/ApplicationEvent.h"
 #include "Mellow/Events/KeyEvent.h"
 
+#include "Platform/OpenGL/OpenGLContext.h"
+
 namespace Mellow {
 
 	static int s_GLFWWindowCount = 0;
@@ -43,6 +45,10 @@ namespace Mellow {
 		// Create Window
 		m_Window = glfwCreateWindow((int)m_Data.Width, (int)m_Data.Height, m_Data.Title.c_str(), NULL, NULL);
 		s_GLFWWindowCount += 1;
+
+		// Setup the Graphics Context
+		m_Context = new OpenGLContext(m_Window);
+		m_Context->Init();
 
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVsync(m_Data.vSync);
@@ -94,7 +100,7 @@ namespace Mellow {
 	void WindowsWindow::OnUpdate() {
 		// Poll for GLFW events
 		glfwPollEvents();
-		glfwSwapBuffers(m_Window); // TEMP
+		m_Context->SwapBuffers();
 ;	}
 
 	void WindowsWindow::SetVsync(bool isVsync) {

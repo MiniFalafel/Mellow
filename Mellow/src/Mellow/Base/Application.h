@@ -2,6 +2,7 @@
 
 #include "Mellow/Base/Base.h"
 #include "Mellow/Base/Window.h"
+#include "Mellow/Renderer/GraphicsContext.h"
 
 #include "Mellow/Events/Event.h"
 #include "Mellow/Events/ApplicationEvent.h"
@@ -25,6 +26,7 @@ namespace Mellow {
 
 		// Callbacks
 		bool OnWindowClose(WindowCloseEvent& e);
+		bool OnWindowResize(WindowResizeEvent& e);
 
 		std::unique_ptr<Window> m_Window;
 		bool m_Running;

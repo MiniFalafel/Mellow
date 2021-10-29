@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Mellow/Base/Window.h"
+#include "Mellow/Renderer/GraphicsContext.h"
 #include <GLFW/glfw3.h>
 
 #ifdef MW_PLATFORM_WINDOWS
@@ -34,6 +35,7 @@ namespace Mellow {
 		virtual void Shutdown();
 
 		GLFWwindow* m_Window;
+		GraphicsContext* m_Context;
 
 		struct WindowData {
 			std::string Title;

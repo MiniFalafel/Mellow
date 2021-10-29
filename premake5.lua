@@ -15,9 +15,12 @@ outputDir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 includeDirs = {}
 includeDirs["spdlog"] = "Mellow/vendor/spdlog/include/"
 includeDirs["GLFW"] = "Mellow/vendor/GLFW/include/"
+includeDirs["glad"] = "Mellow/vendor/glad/include/"
+includeDirs["glm"] = "Mellow/vendor/glm/"
 
 -- Other premake files
 include "Mellow/vendor/GLFW"
+include "Mellow/vendor/glad"
 
 project "Mellow"
 	location "Mellow"
@@ -44,11 +47,14 @@ project "Mellow"
 	includedirs {
 		"%{prj.name}/src",
 		"%{includeDirs.spdlog}",
-		"%{includeDirs.GLFW}"
+		"%{includeDirs.GLFW}",
+		"%{includeDirs.glad}",
+		"%{includeDirs.glm}"
 	}
 	
 	links {
-		"GLFW"
+		"GLFW",
+		"glad"
 	}
 	
 	filter "system:windows"
