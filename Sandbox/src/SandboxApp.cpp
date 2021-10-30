@@ -1,17 +1,21 @@
 #include <Mellow.h>
 #include <Mellow/Base/EntryPoint.h>
 
+#include "MyLayer.h"
+
 class Sandbox : public Mellow::Application {
 
 public:
 
 	Sandbox() {
-		// Nothing yet (need to implement layers)
+		PushLayer(new MyLayer()); // Push the example layer
 	}
 
 	~Sandbox() {
 		
 	}
+
+private:
 
 };
 

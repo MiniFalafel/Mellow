@@ -35,9 +35,27 @@ namespace Mellow {
 		Renderer::Shutdown();
 	}
 
+	void Application::PushLayer(Layer* layer) {
+		m_LayerStack.PushLayer(layer);
+		layer->OnAttach();
+	}
+
+	void Application::PushOverlay(Layer* overlay) {
+		m_LayerStack.PushOverlay(overlay);
+		overlay->OnAttach();
+	}
+
 	void Application::OnEvent(Event& e) {
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(MW_BIND_EVENT_FN(Application::OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(MW_BIND_EVENT_FN(Application::OnWindowResize));
+
+		for (std::vector<Layer*>::reverse_iterator it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); it++) {
+			(*it)->OnEvent(e);
+			if (e.IsHandled()) {
+				break;
+			}
+		}
 	}
 
 	void Application::Run() {	
@@ -53,6 +71,11 @@ namespace Mellow {
 		m_Running = false; return true;
 	}
 	bool Application::OnWindowResize(WindowResizeEvent& e) {
+		if (e.GetWidth() == 0 || e.GetHeight() == 0) {
+			m_Minimized = true;
+			return false;
+		}
+		m_Minimized = false;
 		Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
 		return false;
 	}

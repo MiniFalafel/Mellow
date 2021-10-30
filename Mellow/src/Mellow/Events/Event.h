@@ -39,6 +39,8 @@ namespace Mellow {
 		virtual int GetCategoryFlags() const = 0;
 		virtual const char* GetName() const = 0;
 		virtual std::string ToString() const { return GetName(); };
+		
+		inline bool IsHandled() { return m_Handled; }
 
 		inline bool IsInCategory(EventCategory category) {
 			return GetCategoryFlags() & category;

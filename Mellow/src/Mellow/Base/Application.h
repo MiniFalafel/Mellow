@@ -7,6 +7,8 @@
 #include "Mellow/Events/Event.h"
 #include "Mellow/Events/ApplicationEvent.h"
 
+#include "Mellow/Base/LayerStack.h"
+
 
 namespace Mellow {
 	
@@ -15,6 +17,9 @@ namespace Mellow {
 	public:
 		Application();
 		virtual ~Application();
+
+		void PushLayer(Layer* layer);
+		void PushOverlay(Layer* overlay);
 
 		void OnEvent(Event& e);
 		void Run();
@@ -29,7 +34,9 @@ namespace Mellow {
 		bool OnWindowResize(WindowResizeEvent& e);
 
 		std::unique_ptr<Window> m_Window;
-		bool m_Running;
+		bool m_Running = true;
+		bool m_Minimized = false;
+		LayerStack m_LayerStack;
 
 		static Application* s_Instance;
 
