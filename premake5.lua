@@ -17,10 +17,12 @@ includeDirs["spdlog"] = "Mellow/vendor/spdlog/include/"
 includeDirs["GLFW"] = "Mellow/vendor/GLFW/include/"
 includeDirs["glad"] = "Mellow/vendor/glad/include/"
 includeDirs["glm"] = "Mellow/vendor/glm/"
+includeDirs["ImGui"] = "Mellow/vendor/imgui/imgui/"
 
 -- Other premake files
 include "Mellow/vendor/GLFW"
 include "Mellow/vendor/glad"
+include "Mellow/vendor/imgui"
 
 project "Mellow"
 	location "Mellow"
@@ -49,12 +51,14 @@ project "Mellow"
 		"%{includeDirs.spdlog}",
 		"%{includeDirs.GLFW}",
 		"%{includeDirs.glad}",
-		"%{includeDirs.glm}"
+		"%{includeDirs.glm}",
+		"%{includeDirs.ImGui}"
 	}
 	
 	links {
 		"GLFW",
-		"glad"
+		"glad",
+		"ImGui"
 	}
 	
 	filter "system:windows"
@@ -98,7 +102,8 @@ project "Sandbox"
 	includedirs {
 		"Mellow/src",
 		"%{includeDirs.spdlog}",
-		"%{includeDirs.GLFW}"
+		"%{includeDirs.GLFW}",
+		"%{includeDirs.ImGui}"
 	}
 	
 	links {
