@@ -9,6 +9,8 @@
 
 #include "Mellow/Base/LayerStack.h"
 
+// NOTE: This is only here for the 'glfwGetTime()' function
+#include <GLFW/glfw3.h>
 
 namespace Mellow {
 	
@@ -29,16 +31,23 @@ namespace Mellow {
 
 	private:
 
-		// Callbacks
-		bool OnWindowClose(WindowCloseEvent& e);
-		bool OnWindowResize(WindowResizeEvent& e);
-
 		std::unique_ptr<Window> m_Window;
 		bool m_Running = true;
 		bool m_Minimized = false;
 		LayerStack m_LayerStack;
 
+		float m_PreviousFrameTime = 0.0f;
+
 		static Application* s_Instance;
+
+	private:
+
+		// Callbacks
+		bool OnWindowClose(WindowCloseEvent& e);
+		bool OnWindowResize(WindowResizeEvent& e);
+
+		// TODO: We should have some sort of platform agnostic way of doing this.
+		float GetTime() { return (float)glfwGetTime(); }
 
 	};
 

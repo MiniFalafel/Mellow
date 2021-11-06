@@ -63,6 +63,16 @@ namespace Mellow {
 			// Update the window
 			m_Window->OnUpdate();
 
+			float time = GetTime();
+			Timestep ts = time - m_PreviousFrameTime;
+			m_PreviousFrameTime = time;
+
+			// Update Layers
+			if (!m_Minimized) {
+				for (Layer* layer : m_LayerStack)
+					layer->OnUpdate(ts);
+			}
+
 			RenderCommand::Clear();
 		}
 	}
