@@ -11,4 +11,8 @@
 
 #include "Mellow/Base/Log.h"
 
+// ------------ Entry Point ------------
+#include "Mellow/Base/EntryPoint.h"
+// -------------------------------------
+
 #endif

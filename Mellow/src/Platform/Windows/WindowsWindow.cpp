@@ -3,6 +3,7 @@
 #include "WindowsWindow.h"
 
 #include "Mellow/Events/ApplicationEvent.h"
+#include "Mellow/Events/MouseEvent.h"
 #include "Mellow/Events/KeyEvent.h"
 
 #include "Platform/OpenGL/OpenGLContext.h"
@@ -53,8 +54,6 @@ namespace Mellow {
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVsync(m_Data.vSync);
 
-		// TODO: Setup glad here. (will come with graphics context and introduction to rendering).
-
 		// Set GLFW callback functions
 		glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window) {
 			WindowData& data = *(WindowData*)(glfwGetWindowUserPointer(window));
@@ -65,6 +64,7 @@ namespace Mellow {
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height) {
 			WindowData& data = *(WindowData*)(glfwGetWindowUserPointer(window));
 			WindowResizeEvent e(width, height);
+			data.Width = width; data.Height = height;
 			data.EventCallback(e);
 
 		});
@@ -89,6 +89,35 @@ namespace Mellow {
 				}
 			}
 
+		});
+		glfwSetCharCallback(m_Window, [](GLFWwindow* window, unsigned int c) {
+			WindowData& data = *(WindowData*)(glfwGetWindowUserPointer(window));
+			KeyTypedEvent e(c);
+			data.EventCallback(e);
+		});
+		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int button, int action, int mods) {
+			WindowData& data = *(WindowData*)(glfwGetWindowUserPointer(window));
+			switch (action) {
+				case GLFW_PRESS: {
+					MouseButtonPressedEvent e(button);
+					data.EventCallback(e);
+					break;
+				}
+				case GLFW_RELEASE:
+					MouseButtonReleasedEvent e(button);
+					data.EventCallback(e);
+					break;
+			}
+		});
+		glfwSetCursorPosCallback(m_Window, [](GLFWwindow* window, double x, double y) {
+			WindowData& data = *(WindowData*)(glfwGetWindowUserPointer(window));
+			MouseMovedEvent e((float)x, (float)y);
+			data.EventCallback(e);
+		});
+		glfwSetScrollCallback(m_Window, [](GLFWwindow* window, double x, double y) {
+			WindowData& data = *(WindowData*)(glfwGetWindowUserPointer(window));
+			MouseScrolledEvent e((float)x, (float)y);
+			data.EventCallback(e);
 		});
 
 	}

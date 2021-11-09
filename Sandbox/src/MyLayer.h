@@ -15,7 +15,8 @@ public:
 	virtual void OnEvent(Event& e) override;
 	virtual void OnAttach() override;
 	virtual void OnDetach() override;
-	
+	virtual void OnImGuiRender() override;
+
 	bool OnKeyPressedEvent(KeyPressedEvent& e);
 
 };

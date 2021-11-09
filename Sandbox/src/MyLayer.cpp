@@ -1,12 +1,9 @@
 #include "MyLayer.h"
 
 #include <Mellow/Events/KeyEvent.h>
+#include <imgui.h>
 
-MyLayer::MyLayer() : Layer("MyLayer") {
-
-
-
-}
+MyLayer::MyLayer() : Layer("MyLayer") {}
 
 void MyLayer::OnEvent(Event& e) {
 	EventDispatcher Dispatcher(e);
@@ -26,4 +23,8 @@ void MyLayer::OnDetach() {
 bool MyLayer::OnKeyPressedEvent(KeyPressedEvent& e) {
 	MW_TRACE("A Key Was Pressed: {0}", e.GetKeyCode());
 	return true;
+}
+
+void MyLayer::OnImGuiRender() {
+	ImGui::ShowDemoWindow();
 }

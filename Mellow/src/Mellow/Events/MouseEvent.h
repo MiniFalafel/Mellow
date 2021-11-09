@@ -19,7 +19,7 @@ namespace Mellow {
 
 	};
 
-	class MouseButtonPressedEvent : MouseButtonEvent {
+	class MouseButtonPressedEvent : public MouseButtonEvent {
 
 	public:
 		MouseButtonPressedEvent(MouseCode button) : MouseButtonEvent(button) {}
@@ -33,7 +33,7 @@ namespace Mellow {
 		EVENT_CLASS_TYPE(MouseButtonPressed)
 	};
 
-	class MouseButtonReleasedEvent : MouseButtonEvent {
+	class MouseButtonReleasedEvent : public MouseButtonEvent {
 
 	public:
 		MouseButtonReleasedEvent(MouseCode button) : MouseButtonEvent(button) {}

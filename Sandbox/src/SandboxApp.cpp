@@ -1,5 +1,4 @@
 #include <Mellow.h>
-#include <Mellow/Base/EntryPoint.h>
 
 #include "MyLayer.h"
 

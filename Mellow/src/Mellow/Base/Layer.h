@@ -17,6 +17,7 @@ namespace Mellow {
 		virtual void OnDetach() {}
 		virtual void OnUpdate(Timestep ts) {}
 		virtual void OnEvent(Event& e) {}
+		virtual void OnImGuiRender() {}
 
 	private:
 

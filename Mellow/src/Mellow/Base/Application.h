@@ -8,6 +8,7 @@
 #include "Mellow/Events/ApplicationEvent.h"
 
 #include "Mellow/Base/LayerStack.h"
+#include "Mellow/ImGui/ImGuiLayer.h"
 
 // NOTE: This is only here for the 'glfwGetTime()' function
 #include <GLFW/glfw3.h>
@@ -34,9 +35,10 @@ namespace Mellow {
 		std::unique_ptr<Window> m_Window;
 		bool m_Running = true;
 		bool m_Minimized = false;
-		LayerStack m_LayerStack;
-
 		float m_PreviousFrameTime = 0.0f;
+
+		LayerStack m_LayerStack;
+		ImGuiLayer* m_ImGuiLayer;
 
 		static Application* s_Instance;
 

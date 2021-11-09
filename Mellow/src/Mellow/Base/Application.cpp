@@ -28,6 +28,10 @@ namespace Mellow {
 		// Make sure that the Render commands work
 		RenderCommand::SetClearColor(glm::vec4(0.2, 0.3, 0.3, 1.0));
 
+		// Make the ImGuiLayer
+		m_ImGuiLayer = ImGuiLayer::Create();
+		PushOverlay(m_ImGuiLayer);
+
 	}
 
 	Application::~Application() {
@@ -60,8 +64,8 @@ namespace Mellow {
 
 	void Application::Run() {	
 		while (m_Running) {
-			// Update the window
-			m_Window->OnUpdate();
+
+			RenderCommand::Clear();
 
 			float time = GetTime();
 			Timestep ts = time - m_PreviousFrameTime;
@@ -73,7 +77,14 @@ namespace Mellow {
 					layer->OnUpdate(ts);
 			}
 
-			RenderCommand::Clear();
+			// ImGuiRender
+			m_ImGuiLayer->Begin();
+			for (Layer* layer : m_LayerStack)
+				layer->OnImGuiRender();
+			m_ImGuiLayer->End();
+
+			// Update the window
+			m_Window->OnUpdate();
 		}
 	}
 

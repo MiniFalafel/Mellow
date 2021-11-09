@@ -13,7 +13,10 @@ namespace Mellow {
 		unsigned int Width;
 		unsigned int Height;
 
-		WindowProperties(std::string title = "Mellow Engine Window", int width = 800, int height = 600) 
+		// TODO: Make a more clearly defined way of setting these from the Application.
+		// For example, there could be an 'ApplicationConfig' struct that stores configuration data
+		// about the app, but includes the kind of data you'd find in a WindowProperties struct.
+		WindowProperties(std::string title = "Mellow Engine Window", int width = 1280, int height = 720) 
 			: Title(title), Width(width), Height(height) {}
 
 	};
