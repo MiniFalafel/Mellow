@@ -21,7 +21,7 @@ Downloading the files is pretty simple. Essentially, all you
 need to do is run this command:
 
 ```
-git clone --recursive https://github.com/SandyFalafel/Mellow.git [YOUR_DIRECTORY]
+git clone --recursive https://github.com/MiniFalafel/Mellow.git [YOUR_DIRECTORY]
 ```
 NOTE: The part in brackets is instructions, not part of the command!
 
