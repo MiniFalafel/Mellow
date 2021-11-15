@@ -21,8 +21,7 @@ void MyLayer::OnDetach() {
 }
 
 void MyLayer::OnUpdate(Timestep ts) {
-	// Check that 'ts' has a value
-	MW_TRACE("Time step: {0}", ts.GetSeconds());
+
 }
 
 bool MyLayer::OnKeyPressedEvent(KeyPressedEvent& e) {

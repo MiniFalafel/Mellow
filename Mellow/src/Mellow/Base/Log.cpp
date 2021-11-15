@@ -10,6 +10,8 @@ namespace Mellow {
 	Ref<spdlog::logger> Log::s_ClientLogger;
 
 	void Log::Init() {
+		MW_PROFILE_FUNCTION();
+
 		// Set logging pattern
 		spdlog::set_pattern("%^[%T] %n: %v%$");
 		// Create Core/Engine-side logger.

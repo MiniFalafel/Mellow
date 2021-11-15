@@ -11,6 +11,7 @@ namespace Mellow {
 	}
 
 	void OpenGLContext::Init() {
+		MW_PROFILE_FUNCTION();
 
 		glfwMakeContextCurrent(m_WindowHandle);
 		// Load glad
@@ -33,6 +34,8 @@ namespace Mellow {
 	}
 
 	void OpenGLContext::SwapBuffers() {
+		MW_PROFILE_FUNCTION();
+
 		glfwSwapBuffers(m_WindowHandle);
 	}
 

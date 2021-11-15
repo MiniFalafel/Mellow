@@ -17,7 +17,7 @@ namespace Mellow {
 	OpenGLImGuiLayer::~OpenGLImGuiLayer() {}
 
 	void OpenGLImGuiLayer::OnAttach() {
-
+        MW_PROFILE_FUNCTION();
 
         // Setup Dear ImGui context
         IMGUI_CHECKVERSION();
@@ -51,6 +51,8 @@ namespace Mellow {
 	}
 
 	void OpenGLImGuiLayer::OnDetach() {
+        MW_PROFILE_FUNCTION();
+
         // Cleanup
         ImGui_ImplOpenGL3_Shutdown();
         ImGui_ImplGlfw_Shutdown();
@@ -58,6 +60,8 @@ namespace Mellow {
 	}
 
 	void OpenGLImGuiLayer::Begin() {
+        MW_PROFILE_FUNCTION();
+
         // Start the Dear ImGui frame
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
@@ -65,6 +69,7 @@ namespace Mellow {
 	}
 
 	void OpenGLImGuiLayer::End() {
+        MW_PROFILE_FUNCTION();
 
         ImGuiIO& io = ImGui::GetIO();
         Application& app = Application::Get();

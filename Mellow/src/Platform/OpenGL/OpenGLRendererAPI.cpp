@@ -6,6 +6,8 @@
 namespace Mellow {
 	
 	void OpenGLRendererAPI::Init() {
+		MW_PROFILE_FUNCTION();
+
 		// Setup OpenGL stuff
 		glEnable(GL_DEPTH_TEST);
 	}

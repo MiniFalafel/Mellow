@@ -14,6 +14,7 @@ namespace Mellow {
 	Application* Application::s_Instance = nullptr;
 
 	Application::Application() {
+		MW_PROFILE_FUNCTION();
 
 		MW_CORE_ASSERT(!s_Instance, "Application already exists!");
 		// Only do this after the assert.
@@ -35,21 +36,28 @@ namespace Mellow {
 	}
 
 	Application::~Application() {
+		MW_PROFILE_FUNCTION();
 		// Shutdown the renderer
 		Renderer::Shutdown();
 	}
 
 	void Application::PushLayer(Layer* layer) {
+		MW_PROFILE_FUNCTION();
+
 		m_LayerStack.PushLayer(layer);
 		layer->OnAttach();
 	}
 
 	void Application::PushOverlay(Layer* overlay) {
+		MW_PROFILE_FUNCTION();
+
 		m_LayerStack.PushOverlay(overlay);
 		overlay->OnAttach();
 	}
 
 	void Application::OnEvent(Event& e) {
+		MW_PROFILE_FUNCTION();
+
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(MW_BIND_EVENT_FN(Application::OnWindowClose));
 		dispatcher.Dispatch<WindowResizeEvent>(MW_BIND_EVENT_FN(Application::OnWindowResize));
@@ -62,8 +70,11 @@ namespace Mellow {
 		}
 	}
 
-	void Application::Run() {	
+	void Application::Run() {
+		MW_PROFILE_FUNCTION();
+
 		while (m_Running) {
+			MW_PROFILE_SCOPE("App Frame");
 
 			RenderCommand::Clear();
 
@@ -72,15 +83,21 @@ namespace Mellow {
 			m_PreviousFrameTime = time;
 
 			// Update Layers
-			if (!m_Minimized) {
-				for (Layer* layer : m_LayerStack)
-					layer->OnUpdate(ts);
+			{
+				MW_PROFILE_SCOPE("LayerStack OnUpdate");
+				if (!m_Minimized) {
+					for (Layer* layer : m_LayerStack)
+						layer->OnUpdate(ts);
+				}
 			}
 
 			// ImGuiRender
 			m_ImGuiLayer->Begin();
-			for (Layer* layer : m_LayerStack)
-				layer->OnImGuiRender();
+			{
+				MW_PROFILE_SCOPE("LayerStack OnImGuiRender");
+				for (Layer* layer : m_LayerStack)
+					layer->OnImGuiRender();
+			}
 			m_ImGuiLayer->End();
 
 			// Update the window

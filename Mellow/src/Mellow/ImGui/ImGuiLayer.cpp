@@ -9,6 +9,8 @@
 namespace Mellow {
 	
 	ImGuiLayer* ImGuiLayer::Create() {
+		MW_PROFILE_FUNCTION();
+
 		switch (RendererAPI::GetAPI()) {
 			case (RendererAPI::API::None): return nullptr;
 			case (RendererAPI::API::OpenGL): return new OpenGLImGuiLayer();

@@ -11,6 +11,8 @@
 
 #include "Mellow/Base/Log.h"
 
+#include "Mellow/Profiling/Instrumentor.h"
+
 #ifdef MW_PLATFORM_WINDOWS
 	#include <Windows.h>
 #endif
