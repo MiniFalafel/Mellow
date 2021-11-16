@@ -11,3 +11,6 @@ bin-int/
 
 # ImGui
 imgui.ini
+
+# Profiling data
+**.json
