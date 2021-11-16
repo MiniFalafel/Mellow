@@ -1,6 +1,9 @@
 #include "MyLayer.h"
 
 #include <Mellow/Events/KeyEvent.h>
+#include <Mellow/Renderer/Renderer.h>
+#include <glm/glm.hpp>
+
 #include <imgui.h>
 
 MyLayer::MyLayer() : Layer("MyLayer") {}
@@ -13,6 +16,8 @@ void MyLayer::OnEvent(Event& e) {
 void MyLayer::OnAttach() {
 	// Check to see that OnAttach is called when layers are pushed.
 	MW_TRACE("'MyLayer' is being attached!");
+	// Make sure that the Render commands work
+	RenderCommand::SetClearColor(glm::vec4(0.1, 0.1, 0.12, 1.0));
 }
 
 void MyLayer::OnDetach() {

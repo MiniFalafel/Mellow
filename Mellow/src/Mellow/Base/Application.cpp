@@ -26,8 +26,6 @@ namespace Mellow {
 
 		// Initialize renderer
 		Renderer::Init();
-		// Make sure that the Render commands work
-		RenderCommand::SetClearColor(glm::vec4(0.1, 0.1, 0.2, 1.0));
 
 		// Make the ImGuiLayer
 		m_ImGuiLayer = ImGuiLayer::Create();

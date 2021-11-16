@@ -103,6 +103,7 @@ project "Sandbox"
 		"Mellow/src",
 		"%{includeDirs.spdlog}",
 		"%{includeDirs.GLFW}",
+		"%{includeDirs.glm}",
 		"%{includeDirs.ImGui}"
 	}
 	
