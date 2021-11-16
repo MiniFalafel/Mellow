@@ -13,4 +13,4 @@ bin-int/
 imgui.ini
 
 # Profiling data
-**.json
+Sandbox/**.json
