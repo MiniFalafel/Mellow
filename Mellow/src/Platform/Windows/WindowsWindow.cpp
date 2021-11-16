@@ -81,7 +81,6 @@ namespace Mellow {
 			});
 			glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-				KeyEvent e();
 				switch (action) {
 				case GLFW_PRESS: {
 					KeyPressedEvent e(key, 0);
