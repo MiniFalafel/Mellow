@@ -3,7 +3,6 @@
 
 #include "RenderCommand.h"
 
-
 namespace Mellow {
 
 	class Renderer {

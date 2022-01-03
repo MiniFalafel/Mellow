@@ -8,10 +8,11 @@ namespace Mellow {
 
 	public:
 
-		virtual void Init() override;
-		virtual void SetClearColor(const glm::vec4& color) override;
-		virtual void SetViewport(const uint32_t x, const uint32_t y, const uint32_t X, const uint32_t Y) override;
-		virtual void Clear() override;
+		void Init() override;
+		void SetClearColor(const glm::vec4& color) override;
+		void SetViewport(const uint32_t x, const uint32_t y, const uint32_t X, const uint32_t Y) override;
+		void Clear() override;
+		void DrawIndexed(Ref<VertexArray> vao) override;
 
 	};
 

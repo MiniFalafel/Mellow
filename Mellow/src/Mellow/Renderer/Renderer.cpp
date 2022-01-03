@@ -1,6 +1,8 @@
 #include "mwpch.h"
 #include "Renderer.h"
 
+#include "Mellow/Renderer/Geometry/VertexArray.h"
+
 namespace Mellow {
 
 	void Renderer::Init() {

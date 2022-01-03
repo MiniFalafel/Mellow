@@ -24,4 +24,8 @@ namespace Mellow {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // NOTE: We might want to add some way of clearing the stencil buffer.
 	}
 
+	void OpenGLRendererAPI::DrawIndexed(Ref<VertexArray> vao) {
+		glDrawElements(GL_TRIANGLES, vao->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+	}
+
 }

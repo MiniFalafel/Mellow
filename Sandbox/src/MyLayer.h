@@ -6,6 +6,8 @@
 
 #include <Mellow/Base/Input.h>
 
+#include <Mellow/Renderer/Geometry/VertexArray.h>
+
 using namespace Mellow;
 
 class MyLayer : public Layer {
@@ -14,12 +16,12 @@ public:
 	MyLayer();
 	virtual ~MyLayer() = default;
 
-	virtual void OnEvent(Event& e) override;
 	virtual void OnAttach() override;
 	virtual void OnDetach() override;
 	virtual void OnUpdate(Timestep ts) override;
 	virtual void OnImGuiRender() override;
 
-	bool OnKeyPressedEvent(KeyPressedEvent& e);
+private:
+	Ref<VertexArray> m_TriangleVAO = VertexArray::Create();
 
 };
