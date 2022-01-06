@@ -7,6 +7,7 @@
 #include <Mellow/Base/Input.h>
 
 #include <Mellow/Renderer/Geometry/VertexArray.h>
+#include <Mellow/Renderer/Shader.h>
 
 using namespace Mellow;
 
@@ -23,5 +24,8 @@ public:
 
 private:
 	Ref<VertexArray> m_TriangleVAO = VertexArray::Create();
+
+	Ref<Shader> m_Shader;
+	glm::vec3 m_ShaderColor = glm::vec3(1.0f);
 
 };
