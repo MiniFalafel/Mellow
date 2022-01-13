@@ -15,17 +15,16 @@ class MyLayer : public Layer {
 
 public:
 	MyLayer();
-	virtual ~MyLayer() = default;
 
-	virtual void OnAttach() override;
-	virtual void OnDetach() override;
-	virtual void OnUpdate(Timestep ts) override;
-	virtual void OnImGuiRender() override;
+	void OnAttach() override;
+	void OnDetach() override;
+	void OnUpdate(Timestep ts) override;
+	void OnImGuiRender() override;
 
 private:
 	Ref<VertexArray> m_TriangleVAO = VertexArray::Create();
 
-	Ref<Shader> m_Shader;
+	ShaderLibrary m_ShaderLib;
 	glm::vec3 m_ShaderColor = glm::vec3(1.0f);
 
 };

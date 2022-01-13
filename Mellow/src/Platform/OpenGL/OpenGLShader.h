@@ -9,8 +9,9 @@ namespace Mellow {
 	class OpenGLShader : public Shader {
 
 	public:
-		OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc);
-		~OpenGLShader();
+		OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc, const std::string& geometrySrc);
+		OpenGLShader(const std::string& filePath);
+		~OpenGLShader() override;
 
 		void Use() const override;
 		void Unuse() const override;
@@ -27,11 +28,16 @@ namespace Mellow {
 		void SetVec3(const std::string& name, const glm::vec3& value) override;
 		void SetVec4(const std::string& name, const glm::vec4& value) override;
 
+		const std::string& GetName() const override { return m_Name; }
+
 	private:
 
 		void SetupShaders(const std::unordered_map<GLenum, std::string>& shaderData);
 		uint32_t SetupSingleShader(GLenum type, const std::string& shaderCode);
 		void CheckCompileErrors(uint32_t ID, const std::string& type);
+
+		std::string ReadFile(const std::string& filePath);
+		std::unordered_map<GLenum, std::string> Process(const std::string source);
 
 		uint32_t m_ProgramID;
 

@@ -7,7 +7,6 @@ namespace Mellow {
 	class Shader {
 
 	public:
-		
 		virtual ~Shader() = default;
 
 		virtual void Use() const = 0;
@@ -25,7 +24,29 @@ namespace Mellow {
 		virtual void SetVec3(const std::string& name, const glm::vec3& value) = 0;
 		virtual void SetVec4(const std::string& name, const glm::vec4& value) = 0;
 
-		static Ref<Shader> Create(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc);
+		static Ref<Shader> Create(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc, const std::string& geometrySrc);
+		static Ref<Shader> Create(const std::string& filePath);
+
+		virtual const std::string& GetName() const = 0;
+
+	};
+
+	class ShaderLibrary {
+
+	public:
+
+		void Add(const std::string& name, Ref<Shader>& shader);
+		void Add(Ref<Shader>& shader);
+		Ref<Shader> Load(const std::string& name, const std::string& filePath);
+		Ref<Shader> Load(const std::string& filePath);
+
+		Ref<Shader>& Get(const std::string& name);
+
+		bool Exists(const std::string& name) const;
+
+	private:
+
+		std::unordered_map<std::string, Ref<Shader>> m_Shaders;
 
 	};
 

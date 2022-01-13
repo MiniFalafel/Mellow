@@ -19,8 +19,8 @@
 #endif
 
 #ifdef MW_ENABLE_ASSERTS
-	#define MW_CORE_ASSERT(x, ...) {if(!x) { MW_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
-	#define MW_ASSERT(x, ...) {if(!x) { MW_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+	#define MW_CORE_ASSERT(x, ...) {if(!(x)) { MW_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+	#define MW_ASSERT(x, ...) {if(!(x)) { MW_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
 #else
 	#define MW_CORE_ASSERT(x, ...)
 	#define MW_ASSERT(x, ...)

@@ -15,39 +15,15 @@ void MyLayer::OnAttach() {
 	RenderCommand::SetClearColor(glm::vec4(0.1, 0.1, 0.12, 1.0));
 
 	// Shader
-	const std::string vertexSrc = "\n"
-		"#version 330 core\n"
-		"layout(location = 0) in vec3 aPos;\n"
-		"\n"
-		"uniform float uScale;\n"
-		"\n"
-		"void main() {\n"
-		"    \n"
-		"    gl_Position = vec4(uScale * aPos, 1.0);\n"
-		"    \n"
-		"}\n";
-	const std::string fragmentSrc = "\n"
-		"#version 330 core\n"
-		"\n"
-		"out vec4 FragColor;\n"
-		"\n"
-		"uniform vec3 uColor;\n"
-		"\n"
-		"void main() {\n"
-		"    \n"
-		"    FragColor = vec4(uColor, 1.0);\n"
-		"    \n"
-		"}\n";
-
-	m_Shader = Shader::Create("Cool Shader ;)", vertexSrc, fragmentSrc);
+	m_ShaderLib.Load("res/example.shader");
 
 	// !! - VERTICES
 	// VAO, VBO testing
 	float vertices[] = {
-		-0.5f, -0.5f, 0.0f,
-		 0.5f, -0.5f, 0.0f,
-		 0.5f,  0.5f, 0.0f,
-		-0.5f,  0.5f, 0.0f
+		-0.5f, -0.5f, 0.0f, 0.8f, 0.4f, 0.2f,
+		 0.5f, -0.5f, 0.0f, 0.2f, 0.8f, 0.4f,
+		 0.5f,  0.5f, 0.0f, 0.4f, 0.2f, 0.8f,
+		-0.5f,  0.5f, 0.0f, 0.8f, 0.2f, 0.8f,
 	};
 	unsigned int indices[] = {
 		0, 1, 2,
@@ -57,6 +33,7 @@ void MyLayer::OnAttach() {
 	Ref<VertexBuffer> VBO = VertexBuffer::Create(vertices, sizeof(vertices));
 	VBO->SetVertexLayout(VertexLayout({
 		{"aPosition", DataType::Vec3},
+		{"aColor", DataType::Vec3},
 	}));
 	m_TriangleVAO->AddVertexBuffer(VBO);
 
@@ -73,11 +50,9 @@ void MyLayer::OnDetach() {
 
 void MyLayer::OnUpdate(Timestep ts) {
 
-	float mx = Input::GetMouseX();
-
-	m_Shader->Use();
-	m_Shader->SetFloat("uScale", mx / 1280.0f);
-	m_Shader->SetVec3("uColor", m_ShaderColor);
+	Ref<Shader>& shader = m_ShaderLib.Get("example");
+	shader->Use();
+	shader->SetVec3("uColor", m_ShaderColor);
 	RenderCommand::DrawIndexed(m_TriangleVAO);
 }
 

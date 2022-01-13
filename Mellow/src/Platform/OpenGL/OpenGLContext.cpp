@@ -29,7 +29,7 @@ namespace Mellow {
 			glGetIntegerv(GL_MAJOR_VERSION, &versionMajor);
 			glGetIntegerv(GL_MAJOR_VERSION, &versionMinor);
 
-			MW_CORE_ASSERT(!(versionMajor < 4) && !(versionMinor < 6), "Maple requires an OpenGL version of 4.6 or higher");
+			MW_CORE_ASSERT(!(versionMajor < 4) && !(versionMinor < 4), "Maple requires an OpenGL version of 4.4 or higher");
 	#endif
 	}
 
