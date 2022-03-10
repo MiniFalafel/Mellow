@@ -11,6 +11,9 @@ namespace Mellow {
 		MW_PROFILE_FUNCTION();
 
 		switch (Renderer::GetAPI()) {
+			case RendererAPI::API::None:
+				MW_CORE_ASSERT(false, "RendererAPI None is not supported!");
+				return nullptr;
 			case RendererAPI::API::OpenGL:
 				return CreateRef<OpenGLShader>(name, vertexSrc, fragmentSrc, geometrySrc);
 		}

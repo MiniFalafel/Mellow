@@ -18,6 +18,7 @@ includeDirs["GLFW"] = "Mellow/vendor/GLFW/include/"
 includeDirs["glad"] = "Mellow/vendor/glad/include/"
 includeDirs["glm"] = "Mellow/vendor/glm/"
 includeDirs["ImGui"] = "Mellow/vendor/imgui/imgui/"
+includeDirs["stbi"] = "Mellow/vendor/stbi/"
 
 -- Other premake files
 include "Mellow/vendor/GLFW"
@@ -39,7 +40,9 @@ project "Mellow"
 	
 	files {
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
+		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/stbi/**.cpp",
+		"%{prj.name}/vendor/stbi/**.h"
 	}
 	
 	defines {
@@ -52,7 +55,8 @@ project "Mellow"
 		"%{includeDirs.GLFW}",
 		"%{includeDirs.glad}",
 		"%{includeDirs.glm}",
-		"%{includeDirs.ImGui}"
+		"%{includeDirs.ImGui}",
+		"%{includeDirs.stbi}"
 	}
 	
 	links {
@@ -103,8 +107,10 @@ project "Sandbox"
 		"Mellow/src",
 		"%{includeDirs.spdlog}",
 		"%{includeDirs.GLFW}",
+		"%{includeDirs.glad}",
 		"%{includeDirs.glm}",
-		"%{includeDirs.ImGui}"
+		"%{includeDirs.ImGui}",
+		"%{includeDirs.stbi}"
 	}
 	
 	links {

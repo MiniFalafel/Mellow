@@ -1,9 +1,5 @@
 #include "MyLayer.h"
 
-#include <Mellow/Events/KeyEvent.h>
-#include <Mellow/Renderer/Renderer.h>
-#include <glm/glm.hpp>
-
 #include <imgui.h>
 
 MyLayer::MyLayer() : Layer("MyLayer") {}
@@ -15,15 +11,15 @@ void MyLayer::OnAttach() {
 	RenderCommand::SetClearColor(glm::vec4(0.1, 0.1, 0.12, 1.0));
 
 	// Shader
-	m_ShaderLib.Load("res/example.shader");
+	m_ShaderLib.Load("res/shaders/example.shader");
 
 	// !! - VERTICES
 	// VAO, VBO testing
 	float vertices[] = {
-		-0.5f, -0.5f, 0.0f, 0.8f, 0.4f, 0.2f,
-		 0.5f, -0.5f, 0.0f, 0.2f, 0.8f, 0.4f,
-		 0.5f,  0.5f, 0.0f, 0.4f, 0.2f, 0.8f,
-		-0.5f,  0.5f, 0.0f, 0.8f, 0.2f, 0.8f,
+		-0.5f, -0.5f, 0.0f, 0.0, 0.0,
+		 0.5f, -0.5f, 0.0f, 1.0, 0.0,
+		 0.5f,  0.5f, 0.0f, 1.0, 1.0,
+		-0.5f,  0.5f, 0.0f, 0.0, 1.0,
 	};
 	unsigned int indices[] = {
 		0, 1, 2,
@@ -33,14 +29,17 @@ void MyLayer::OnAttach() {
 	Ref<VertexBuffer> VBO = VertexBuffer::Create(vertices, sizeof(vertices));
 	VBO->SetVertexLayout(VertexLayout({
 		{"aPosition", DataType::Vec3},
-		{"aColor", DataType::Vec3},
+		{"aTexCoord", DataType::Vec2},
 	}));
 	m_TriangleVAO->AddVertexBuffer(VBO);
 
 	Ref<IndexBuffer> EBO = IndexBuffer::Create(indices, sizeof(indices));
 
 	m_TriangleVAO->SetIndexBuffer(EBO);
-	
+
+	//m_Texture = Texture2D::Create("res/textures/floor_tiles_06_diff_1k.png");
+	m_Texture = Texture2D::Create(512, 512, {1.0f, 0.0f, 1.0f, 1.0f});
+
 }
 
 void MyLayer::OnDetach() {
@@ -50,15 +49,17 @@ void MyLayer::OnDetach() {
 
 void MyLayer::OnUpdate(Timestep ts) {
 
+
 	Ref<Shader>& shader = m_ShaderLib.Get("example");
 	shader->Use();
-	shader->SetVec3("uColor", m_ShaderColor);
+	m_Texture->Bind(1);
+	shader->SetInt("uTexImage", 1);
+	shader->SetVec4("uColor", m_UniformColor);
 	RenderCommand::DrawIndexed(m_TriangleVAO);
 }
 
 void MyLayer::OnImGuiRender() {
-	ImGui::Begin("Test Window");
-	ImGui::Text("ImGui stuff exists so that's cool.");
-	ImGui::ColorEdit3("Rectangle Color", &m_ShaderColor[0]);
+	ImGui::Begin("Shader Interaction Window");
+	ImGui::ColorPicker4("Uniform Color", &m_UniformColor[0]);
 	ImGui::End();
 }

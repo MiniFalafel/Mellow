@@ -1,13 +1,10 @@
 #pragma once
 
 #include <Mellow/Base/Layer.h>
-#include <Mellow/Events/Event.h>
-#include <Mellow/Events/KeyEvent.h>
-
-#include <Mellow/Base/Input.h>
-
 #include <Mellow/Renderer/Geometry/VertexArray.h>
 #include <Mellow/Renderer/Shader.h>
+#include <Mellow/Renderer/Renderer.h>
+#include <Mellow/Renderer/Texture.h>
 
 using namespace Mellow;
 
@@ -22,9 +19,13 @@ public:
 	void OnImGuiRender() override;
 
 private:
+
+	glm::vec4 m_UniformColor = glm::vec4(1.0);
+
 	Ref<VertexArray> m_TriangleVAO = VertexArray::Create();
 
+	Ref<Texture2D> m_Texture;
+
 	ShaderLibrary m_ShaderLib;
-	glm::vec3 m_ShaderColor = glm::vec3(1.0f);
 
 };
