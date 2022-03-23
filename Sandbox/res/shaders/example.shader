@@ -8,10 +8,13 @@ out VS_OUT {
     vec2 texCoords;
 } vs_out;
 
+uniform mat4 uProjectionMatrix;
+uniform mat4 uViewMatrix;
+
 void main() {
     
     vs_out.texCoords = aTexCoords;
-    gl_Position = vec4(aPos, 1.0);
+    gl_Position = uProjectionMatrix * uViewMatrix * vec4(aPos, 1.0);
     
 }
 

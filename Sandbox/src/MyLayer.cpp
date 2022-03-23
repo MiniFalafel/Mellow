@@ -2,7 +2,7 @@
 
 #include <imgui.h>
 
-MyLayer::MyLayer() : Layer("MyLayer") {}
+MyLayer::MyLayer() : Layer("MyLayer"), m_CameraController(1280.0f / 720.0f, glm::vec3(0.0f, 0.0f, 2.0f)) {}
 
 void MyLayer::OnAttach() {
 	// Check to see that OnAttach is called when layers are pushed.
@@ -12,8 +12,10 @@ void MyLayer::OnAttach() {
 
 	// Shader
 	m_ShaderLib.Load("res/shaders/example.shader");
+	// Texture
+	m_Texture = Texture2D::Create("res/textures/floor_tiles_06_diff_1k.png");
+	//m_Texture = Texture2D::Create(512, 512, {1.0f, 1.0f, 1.0f, 1.0f});
 
-	// !! - VERTICES
 	// VAO, VBO testing
 	float vertices[] = {
 		-0.5f, -0.5f, 0.0f, 0.0, 0.0,
@@ -37,9 +39,27 @@ void MyLayer::OnAttach() {
 
 	m_TriangleVAO->SetIndexBuffer(EBO);
 
-	//m_Texture = Texture2D::Create("res/textures/floor_tiles_06_diff_1k.png");
-	m_Texture = Texture2D::Create(512, 512, {1.0f, 0.0f, 1.0f, 1.0f});
+	m_CameraController.SetMouseSensitivity(0.25f);
 
+}
+
+bool MyLayer::OnMouseMovement(MouseMovedEvent& e) {
+	if (m_MouseLocked)
+		m_CameraController.OnMouseMovement(e);
+
+	return false;
+}
+
+bool MyLayer::OnKeyPress(KeyPressedEvent& e) {
+
+	if (e.GetKeyCode() == Mellow::Key::Escape)
+		m_MouseLocked = !m_MouseLocked;
+
+	if (e.GetKeyCode() == Mellow::Key::T) // Toggle between perspective and orthographic
+		// Just thought it would be a little fun to showcase both things that the controller can do.
+		m_T = !m_T;
+
+	return true;
 }
 
 void MyLayer::OnDetach() {
@@ -47,14 +67,25 @@ void MyLayer::OnDetach() {
 	MW_TRACE("'MyLayer' is being shut down.");
 }
 
+void MyLayer::OnEvent(Event& e) {
+	EventDispatcher dispatcher(e);
+	// Dispatch event callbacks for camera controls
+	dispatcher.Dispatch<MouseMovedEvent>(MW_BIND_EVENT_FN(MyLayer::OnMouseMovement));
+	dispatcher.Dispatch<KeyPressedEvent>(MW_BIND_EVENT_FN(MyLayer::OnKeyPress));
+}
+
 void MyLayer::OnUpdate(Timestep ts) {
 
+	m_CameraController.CheckInputs();
+	m_CameraController.Update(ts);
 
 	Ref<Shader>& shader = m_ShaderLib.Get("example");
 	shader->Use();
 	m_Texture->Bind(1);
 	shader->SetInt("uTexImage", 1);
 	shader->SetVec4("uColor", m_UniformColor);
+	shader->SetMat4("uProjectionMatrix", m_T ? m_CameraController.GetCamera()->GetProjectionMatrixOrthographic() : m_CameraController.GetCamera()->GetProjectionMatrixPerspective());
+	shader->SetMat4("uViewMatrix", m_CameraController.GetCamera()->GetViewMatrix());
 	RenderCommand::DrawIndexed(m_TriangleVAO);
 }
 
