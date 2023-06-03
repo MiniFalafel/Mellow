@@ -59,50 +59,50 @@ namespace Mellow {
 		glUseProgram(0);
 	}
 
-	void OpenGLShader::SetInt(const std::string& name, const int& value) {
+	void OpenGLShader::SetInt(const std::string& name, const int& value) const {
 		MW_PROFILE_FUNCTION();
 
 		glUniform1i(glGetUniformLocation(m_ProgramID, name.c_str()), value);
 	}
 
-	void OpenGLShader::SetBool(const std::string& name, const bool& value) {
+	void OpenGLShader::SetBool(const std::string& name, const bool& value) const {
 		MW_PROFILE_FUNCTION();
 
 		glUniform1i(glGetUniformLocation(m_ProgramID, name.c_str()), value);
 	}
 
-	void OpenGLShader::SetFloat(const std::string& name, const float& value) {
+	void OpenGLShader::SetFloat(const std::string& name, const float& value) const {
 		MW_PROFILE_FUNCTION();
 
 		glUniform1f(glGetUniformLocation(m_ProgramID, name.c_str()), value);
 	}
 
-	void OpenGLShader::SetMat3(const std::string& name, const glm::mat3& value) {
+	void OpenGLShader::SetMat3(const std::string& name, const glm::mat3& value) const {
 		MW_PROFILE_FUNCTION();
 
 		glUniformMatrix3fv(glGetUniformLocation(m_ProgramID, name.c_str()), 1, GL_FALSE, &value[0][0]);
 	}
 
-	void OpenGLShader::SetMat4(const std::string& name, const glm::mat4& value) {
+	void OpenGLShader::SetMat4(const std::string& name, const glm::mat4& value) const {
 		MW_PROFILE_FUNCTION();
 
 		glUniformMatrix4fv(glGetUniformLocation(m_ProgramID, name.c_str()), 1, GL_FALSE, &value[0][0]);
 	}
 
-	void OpenGLShader::SetVec2(const std::string& name, const glm::vec2& value) {
+	void OpenGLShader::SetVec2(const std::string& name, const glm::vec2& value) const {
 		MW_PROFILE_FUNCTION();
 
 		glUniform2fv(glGetUniformLocation(m_ProgramID, name.c_str()), 1, &value[0]);
 	}
 
-	void OpenGLShader::SetVec3(const std::string& name, const glm::vec3& value) {
+	void OpenGLShader::SetVec3(const std::string& name, const glm::vec3& value) const {
 		MW_PROFILE_FUNCTION();
 
 		glUniform3fv(glGetUniformLocation(m_ProgramID, name.c_str()), 1, &value[0]);
 
 	}
 
-	void OpenGLShader::SetVec4(const std::string& name, const glm::vec4& value) {
+	void OpenGLShader::SetVec4(const std::string& name, const glm::vec4& value) const {
 		MW_PROFILE_FUNCTION();
 
 		glUniform4fv(glGetUniformLocation(m_ProgramID, name.c_str()), 1, &value[0]);

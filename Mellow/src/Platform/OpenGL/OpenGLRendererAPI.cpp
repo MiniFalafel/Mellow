@@ -25,6 +25,9 @@ namespace Mellow {
 	}
 
 	void OpenGLRendererAPI::DrawIndexed(Ref<VertexArray> vao) {
+		MW_PROFILE_FUNCTION();
+
+		vao->Bind();
 		glDrawElements(GL_TRIANGLES, vao->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 	}
 

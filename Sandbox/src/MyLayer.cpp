@@ -25,12 +25,12 @@ void MyLayer::OnAttach() {
 	RenderCommand::SetClearColor(glm::vec4(0.1, 0.1, 0.12, 1.0));
 
 	// Shader
-	m_ShaderLib.Load("res/shaders/cool lighting n shit.shader");
+	m_ShaderLib.Load("res/shaders/cool lighting n appropriate words.shader");
 	// Texture
-	m_Texture = Texture2D::Create("res/textures/floor_tiles_06_diff_1k.png");
+	m_Texture = Texture2D::Create("res/textures/awesomeface.png");
 	//m_Texture = Texture2D::Create(512, 512, {1.0f, 1.0f, 1.0f, 1.0f});
 
-	// VAO, VBO testing
+	// Mesh
 	float vertices[] = {
 		-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0, 0.0,
 		 0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0, 0.0,
@@ -41,18 +41,29 @@ void MyLayer::OnAttach() {
 		0, 1, 2,
 		2, 3, 0,
 	};
-	
-	Ref<VertexBuffer> VBO = VertexBuffer::Create(vertices, sizeof(vertices));
-	VBO->SetVertexLayout(VertexLayout({
+	m_Mesh = CreateRef<Mesh>("quad", vertices, sizeof(vertices), indices, sizeof(indices), VertexLayout({
 		{"aPosition", DataType::Vec3},
 		{"aNormal", DataType::Vec3},
 		{"aTexCoord", DataType::Vec2},
 	}));
-	m_TriangleVAO->AddVertexBuffer(VBO);
 
-	Ref<IndexBuffer> EBO = IndexBuffer::Create(indices, sizeof(indices));
+	Ref<Mesh> otherMesh = CreateRef<Mesh>("smallquad", vertices, sizeof(vertices), indices, sizeof(indices), VertexLayout({
+		{"aPosition", DataType::Vec3},
+		{"aNormal", DataType::Vec3},
+		{"aTexCoord", DataType::Vec2},
+	}));
 
-	m_TriangleVAO->SetIndexBuffer(EBO);
+	otherMesh->SetTransform(
+	{
+		glm::vec3(0.0f, 0.0f, 0.5f),
+		glm::vec3(0.0f),
+		glm::vec3(0.25f),
+	});
+
+	// Model
+	m_Model = CreateRef<Model>();
+	m_Model->AddMesh(m_Mesh);
+	m_Model->AddMesh(otherMesh);
 
 	//m_CameraController.SetMouseSensitivity(1.0f);
 	m_CameraController.BindActiveStateCallback(CameraToggleCallback);
@@ -75,10 +86,6 @@ bool MyLayer::OnKeyPress(KeyPressedEvent& e) {
 		m_CameraController.SetActiveState(m_CamToggleParams.CurrentToggleState);
 	}
 
-	if (e.GetKeyCode() == Mellow::Key::T) // Toggle between perspective and orthographic
-		// Just thought it would be a little fun to showcase both things that the controller can do.
-		m_T = !m_T;
-
 	return true;
 }
 
@@ -97,10 +104,12 @@ void MyLayer::OnEvent(Event& e) {
 void MyLayer::OnUpdate(Timestep ts) {
 	m_Time += ts.GetSeconds();
 
+	m_Framerate = 1.0f / ts.GetSeconds();
+
 	m_CameraController.CheckInputs();
 	m_CameraController.Update(ts);
 
-	Ref<Shader>& shader = m_ShaderLib.Get("cool lighting n shit");
+	Ref<Shader>& shader = m_ShaderLib.Get("cool lighting n appropriate words");
 	shader->Use();
 	m_Texture->Bind(1);
 	shader->SetInt("uTexImage", 1);
@@ -109,10 +118,18 @@ void MyLayer::OnUpdate(Timestep ts) {
 	shader->SetVec3("uLightColor", m_LightColor);
 	shader->SetVec3("uCameraPos", m_CameraController.GetCamera()->GetPosition());
 
-	shader->SetMat4("uProjectionMatrix", m_T ? m_CameraController.GetCamera()->GetProjectionMatrixOrthographic() : m_CameraController.GetCamera()->GetProjectionMatrixPerspective());
+	shader->SetMat4("uProjectionMatrix", m_CameraController.GetCamera()->GetProjectionMatrixPerspective());
 	shader->SetMat4("uViewMatrix", m_CameraController.GetCamera()->GetViewMatrix());
 	shader->SetFloat("uTime", m_Time);
-	RenderCommand::DrawIndexed(m_TriangleVAO);
+
+	for (Ref<Mesh> mesh : m_Model->GetMeshList())
+	{
+		if (mesh->GetEnabledState())
+		{
+			shader->SetMat4("uModelMatrix", m_Model->GetMeshModelMatrix(mesh->GetName()));
+			RenderCommand::DrawIndexed(mesh->GetVAO());
+		}
+	}
 }
 
 void MyLayer::OnImGuiRender()
@@ -124,6 +141,10 @@ void MyLayer::OnImGuiRender()
 		{
 			ImGui::Text("Object Color:");
 			ImGui::ColorPicker4("", &m_UniformColor[0]);
+			ImGui::Text("Model Editor:");
+			ImGui::DragFloat3("Pos", &m_Model->GetTransform().Position[0], 0.016843f);
+			ImGui::DragFloat3("Rot", &m_Model->GetTransform().Rotation[0], 0.036843f);
+			ImGui::DragFloat3("Scale", &m_Model->GetTransform().Scale[0],  0.016843f);
 			ImGui::EndTabItem();
 		}
 		if(ImGui::BeginTabItem("Lighting"))

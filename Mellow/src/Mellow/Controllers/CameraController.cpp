@@ -60,6 +60,8 @@ namespace Mellow {
 
 	void CameraController::BindMovementKey(const char* keyName, KeyCode keyCode)
 	{
+		MW_PROFILE_FUNCTION();
+
 		// make sure the keyName actually exists.
 		for (auto it = m_MovementKeyBinds.begin(); it != m_MovementKeyBinds.end(); it++)
 		{
@@ -75,7 +77,9 @@ namespace Mellow {
 
 	}
 
-	void CameraController::CheckInputs() {
+	void CameraController::CheckInputs()
+	{
+		MW_PROFILE_FUNCTION();
 
 		m_MovementDirMultiplier.z = float(Input::IsKeyPressed(m_MovementKeyBinds["Forward"])) - float(Input::IsKeyPressed(m_MovementKeyBinds["Backward"]));
 		m_MovementDirMultiplier.x = float(Input::IsKeyPressed(m_MovementKeyBinds["Right"])) - float(Input::IsKeyPressed(m_MovementKeyBinds["Left"]));
@@ -85,7 +89,10 @@ namespace Mellow {
 
 	}
 
-	void CameraController::Update(Timestep ts) {
+	void CameraController::Update(Timestep ts)
+	{
+		MW_PROFILE_FUNCTION();
+
 		if (m_Enabled)
 		{
 			glm::vec3 NetMotion = glm::vec3(0.0f);

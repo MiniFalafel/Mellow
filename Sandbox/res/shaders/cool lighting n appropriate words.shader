@@ -13,14 +13,15 @@ out VS_OUT{
 
 uniform mat4 uProjectionMatrix;
 uniform mat4 uViewMatrix;
+uniform mat4 uModelMatrix;
 uniform float uTime;
 
 void main() {
 
     vs_out.texCoords = aTexCoords;
-    vs_out.FragPos = aPos;
+    vs_out.FragPos = vec3(uModelMatrix * vec4(aPos, 1.0));
     vs_out.FragPos.z += sin(uTime);
-    vs_out.Normal = aNormal;
+    vs_out.Normal = mat3(transpose(inverse(uModelMatrix))) * aNormal;
     gl_Position = uProjectionMatrix * uViewMatrix * vec4(vs_out.FragPos, 1.0);
 
 }
@@ -56,11 +57,12 @@ void main() {
     vec3 lightDir = normalize(fs_in.FragPos - uLightPos);
 
     // diffuse
-    float diffuse = max(dot(fs_in.Normal, -lightDir), 0.0);
+    vec3 norm = normalize(fs_in.Normal);
+    float diffuse = max(dot(norm, -lightDir), 0.0);
 
     // specular
     vec3 viewDir = normalize(fs_in.FragPos - uCameraPos);
-    float specular = pow(max(dot(-viewDir, reflect(lightDir, fs_in.Normal)), 0.0), 256.0);
+    float specular = pow(max(dot(-viewDir, reflect(lightDir, norm)), 0.0), 256.0);
 
     // attenuation
     float attenuation = 1.0 / pow(length(fs_in.FragPos - uLightPos), 2.0);

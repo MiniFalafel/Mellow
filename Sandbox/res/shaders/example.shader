@@ -6,15 +6,18 @@ layout (location = 2) in vec2 aTexCoords;
 
 out VS_OUT {
     vec2 texCoords;
+    vec3 FragCoords;
 } vs_out;
 
 uniform mat4 uProjectionMatrix;
 uniform mat4 uViewMatrix;
+uniform mat4 uModelMatrix;
 
 void main() {
     
     vs_out.texCoords = aTexCoords;
-    gl_Position = uProjectionMatrix * uViewMatrix * vec4(aPos, 1.0);
+    vs_out.FragCoords = vec3(uModelMatrix * vec4(aPos, 1.0));
+    gl_Position = uProjectionMatrix * uViewMatrix * vec4(vs_out.FragCoords, 1.0);
     
 }
 
@@ -25,6 +28,7 @@ out vec4 FragColor;
 
 in VS_OUT{
     vec2 texCoords;
+    vec3 FragCoords;
 } fs_in;
 
 uniform vec4 uColor;

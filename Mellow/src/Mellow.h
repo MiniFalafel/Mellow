@@ -6,6 +6,7 @@
 // Application
 #include "Mellow/Base/Application.h"
 #include "Mellow/Base/Input.h"
+#include "Mellow/Base/Layer.h"
 // Events
 #include "Mellow/Events/ApplicationEvent.h"
 #include "Mellow/Events/MouseEvent.h"
@@ -16,6 +17,8 @@
 #include "Mellow/Renderer/Geometry/Buffer.h"
 #include "Mellow/Renderer/Geometry/VertexArray.h"
 #include "Mellow/Renderer/Texture.h"
+// Logic
+#include "Mellow/Controllers/CameraController.h"
 
 #include "Mellow/Base/Log.h"
 

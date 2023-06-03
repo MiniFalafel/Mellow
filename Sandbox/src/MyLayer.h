@@ -1,15 +1,14 @@
 #pragma once
 
-#include <Mellow/Base/Layer.h>
-#include <Mellow/Events/KeyEvent.h>
+#include "Mellow/Base/Layer.h"
+#include "Mellow/Events/MouseEvent.h"
+#include "Mellow/Events/KeyEvent.h"
 
-#include <Mellow/Renderer/Shader.h>
-#include <Mellow/Renderer/Texture.h>
-#include <Mellow/Renderer/Renderer.h>
-#include <Mellow/Controllers/CameraController.h>
+#include "Mellow/Controllers/CameraController.h"
 
-#include <Mellow/Renderer/Geometry/VertexArray.h>
-
+#include "Mellow/Renderer/Geometry/Model.h"
+#include "Mellow/Renderer/Texture.h"
+#include "Mellow/Renderer/Shader.h"
 
 struct CameraToggleCallbackParams
 {
@@ -37,7 +36,8 @@ private:
 	CameraController m_CameraController;
 	CameraToggleCallbackParams m_CamToggleParams = { true, };
 
-	Ref<VertexArray> m_TriangleVAO = VertexArray::Create();
+	Ref<Model> m_Model;
+	Ref<Mesh> m_Mesh;
 	Ref<Texture2D> m_Texture;
 
 	ShaderLibrary m_ShaderLib;
@@ -47,7 +47,6 @@ private:
 	glm::vec3 m_LightColor = glm::vec3(1.0f);
 
 	float m_Time = 0.0f;
-
-	bool m_T = false; // 'T' stands for toggle (in case anyone cares).
+	float m_Framerate = 0.0f;
 
 };
