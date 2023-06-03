@@ -9,6 +9,8 @@
 #include <string>
 #include <utility>
 
+#include <map>
+
 #include "Mellow/Base/Log.h"
 
 #include "Mellow/Profiling/Instrumentor.h"

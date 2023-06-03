@@ -17,6 +17,9 @@ namespace Mellow {
 		std::pair<float, float> GetMousePosImpl() override;
 		float GetMouseXImpl() override;
 		float GetMouseYImpl() override;
+		void SetMouseDisabledImpl() override;
+		void SetMouseHiddenImpl() override;
+		void SetMouseNormalImpl() override;
 
 	};
 

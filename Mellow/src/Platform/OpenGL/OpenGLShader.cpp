@@ -13,7 +13,7 @@ namespace Mellow {
 		else if (typeName == "geometry")
 			return GL_GEOMETRY_SHADER;
 
-		MW_CORE_ASSERT(false, "Unknown shader type!");
+		MW_CORE_ASSERT(false, "Unknown shader type!:\n    " + typeName);
 		return 0;
 	}
 

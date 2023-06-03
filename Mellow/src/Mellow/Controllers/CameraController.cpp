@@ -35,10 +35,12 @@ namespace Mellow {
 		float mouseX = e.GetX();
 		float mouseY = e.GetY();
 
-		if (!m_FirstMouseMovement) {
+		if (m_Enabled)
+		{
+			float multiplier = m_Sensitivity * 0.1875f; // 360.0f / 1920.0f = 0.1875f (360 degrees for a full screen movement).
 
-			float dX = mouseX - m_LastMouseX;
-			float dY = mouseY - m_LastMouseY;
+			float dX = (mouseX - m_LastMouseX) * multiplier;
+			float dY = (mouseY - m_LastMouseY) * multiplier;
 
 			glm::vec3 rotation = m_Camera->GetRotation();
 
@@ -48,33 +50,53 @@ namespace Mellow {
 			rotation.y -= dX;
 
 			m_Camera->SetRotation(rotation);
-		}
-		else { m_FirstMouseMovement = false; }
 
-		m_Camera->UpdateViewMatrix();
+			m_Camera->UpdateViewMatrix();
+		}
 
 		m_LastMouseX = mouseX;
 		m_LastMouseY = mouseY;
 	}
 
+	void CameraController::BindMovementKey(const char* keyName, KeyCode keyCode)
+	{
+		// make sure the keyName actually exists.
+		for (auto it = m_MovementKeyBinds.begin(); it != m_MovementKeyBinds.end(); it++)
+		{
+			if (it->first == keyName)
+			{
+				m_MovementKeyBinds[keyName] = keyCode;
+				return;
+			}
+		}
+
+		// Shouldn't get here unless the keyName doesn't exist
+		MW_CORE_ERROR("INVALID KEY BIND NAME!:\n    keyName {0} does not exist in the CameraController keybind list.", keyName);
+
+	}
+
 	void CameraController::CheckInputs() {
-		m_Forward = Input::IsKeyPressed(m_KeyForward);
-		m_Backward = Input::IsKeyPressed(m_KeyBackward);
-		m_Left = Input::IsKeyPressed(m_KeyLeft);
-		m_Right = Input::IsKeyPressed(m_KeyRight);
-		m_Up = Input::IsKeyPressed(m_KeyUp);
-		m_Down = Input::IsKeyPressed(m_KeyDown);
+
+		m_MovementDirMultiplier.z = float(Input::IsKeyPressed(m_MovementKeyBinds["Forward"])) - float(Input::IsKeyPressed(m_MovementKeyBinds["Backward"]));
+		m_MovementDirMultiplier.x = float(Input::IsKeyPressed(m_MovementKeyBinds["Right"])) - float(Input::IsKeyPressed(m_MovementKeyBinds["Left"]));
+		m_MovementDirMultiplier.y = float(Input::IsKeyPressed(m_MovementKeyBinds["Up"])) - float(Input::IsKeyPressed(m_MovementKeyBinds["Down"]));
+
+		glm::normalize(m_MovementDirMultiplier);
+
 	}
 
 	void CameraController::Update(Timestep ts) {
-		if (m_Forward) { m_Camera->AddToPosition(m_Camera->GetFrontVector() * ts.GetSeconds()); }
-		if (m_Backward) { m_Camera->AddToPosition(-m_Camera->GetFrontVector() * ts.GetSeconds()); }
-		if (m_Left) { m_Camera->AddToPosition(-m_Camera->GetRightVector() * ts.GetSeconds()); }
-		if (m_Right) { m_Camera->AddToPosition(m_Camera->GetRightVector() * ts.GetSeconds()); }
-		if (m_Up) { m_Camera->AddToPosition(m_Camera->GetUpVector() * ts.GetSeconds()); }
-		if (m_Down) { m_Camera->AddToPosition(-m_Camera->GetUpVector() * ts.GetSeconds()); }
+		if (m_Enabled)
+		{
+			glm::vec3 NetMotion = glm::vec3(0.0f);
+			NetMotion += m_Camera->GetFrontVector() * m_MovementDirMultiplier.z;
+			NetMotion += m_Camera->GetRightVector() * m_MovementDirMultiplier.x;
+			NetMotion += m_Camera->GetUpVector()    * m_MovementDirMultiplier.y;
 
-		m_Camera->UpdateViewMatrix();
+			m_Camera->AddToPosition(NetMotion * m_MovementSpeed * ts.GetSeconds());
+
+			m_Camera->UpdateViewMatrix();
+		}
 	}
 
 }
