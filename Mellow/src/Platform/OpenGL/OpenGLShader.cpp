@@ -117,7 +117,8 @@ namespace Mellow {
 		std::array<GLenum, 3> ShaderIDs;
 		uint32_t ShaderIDindex = 0;
 		for (auto& pair : shaderData) {
-			ShaderIDs[ShaderIDindex++] = SetupSingleShader(pair.first, pair.second);
+			ShaderIDindex++;
+			ShaderIDs[ShaderIDindex] = SetupSingleShader(pair.first, pair.second);
 		}
 		glLinkProgram(m_ProgramID);
 		CheckCompileErrors(m_ProgramID, "PROGRAM");
@@ -205,7 +206,7 @@ namespace Mellow {
 		size_t Pos = source.find(TypeToken, 0);
 		while (Pos != std::string::npos) {
 			const size_t eol = source.find_first_of("\r\n", Pos);
-			const size_t tmp = !eol;
+			const size_t tmp = ~eol;
 			MW_CORE_ASSERT(tmp != std::string::npos, "Syntax Error!");
 			size_t begin = Pos + TypeTokenLength + 1;
 			std::string type = source.substr(begin, eol - begin);

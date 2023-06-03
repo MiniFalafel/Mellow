@@ -16,6 +16,7 @@ namespace Mellow
 		}
 
 		MW_ERROR("MESH \"{0}\" DOES NOT EXIST IN THIS MODEL", name);
+		return nullptr;
 	}
 
 	Ref<Mesh> Model::GetMesh(uint32_t index)

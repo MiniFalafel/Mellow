@@ -152,7 +152,7 @@ void MyLayer::OnImGuiRender()
 			ImGui::Text("Light Position:");
 			ImGui::DragFloat3("", &m_LightPosition[0], 0.1f);
 			ImGui::Text("Light Color:");
-			ImGui::ColorPicker3("", &m_LightColor[0], 0.1f);
+			ImGui::ColorPicker3("", &m_LightColor[0]);
 			ImGui::EndTabItem();
 		}
 		ImGui::EndTabBar();

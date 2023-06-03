@@ -14,7 +14,7 @@ namespace Mellow {
 		DataType Type;
 		bool Normalized;
 		uint32_t Size;
-		uint32_t Offset;
+		uint32_t Offset = 0;
 
 		VertexElement(std::string name, DataType type, bool normalized = false) : Name(name), 
 			Type(type), Normalized(normalized), Size(SizeofDataType(type)) {}
@@ -64,7 +64,7 @@ namespace Mellow {
 
 	private:
 
-		uint32_t m_Stride;
+		uint32_t m_Stride = 0;
 
 		void ProcessElements() {
 			MW_PROFILE_FUNCTION();
