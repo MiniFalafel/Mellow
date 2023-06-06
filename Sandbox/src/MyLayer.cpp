@@ -1,6 +1,7 @@
 #include "MyLayer.h"
 
 #include <Mellow/Base/Input.h>
+#include <Mellow/Scene/Object3D.h>
 
 #include <imgui.h>
 
@@ -65,10 +66,19 @@ void MyLayer::OnAttach() {
 	m_Model->AddMesh(m_Mesh);
 	m_Model->AddMesh(otherMesh);
 
-	//m_CameraController.SetMouseSensitivity(1.0f);
+	m_CameraController.SetMouseSensitivity(0.7f);
 	m_CameraController.BindActiveStateCallback(CameraToggleCallback);
 	m_CameraController.SetActiveStateCallbackParameterPtr(&m_CamToggleParams);
 	m_CameraController.SetActiveState(m_CamToggleParams.CurrentToggleState);
+
+	// Test Custom Attribute Thing
+	Mellow::Object3D::CustomAttributeList list;
+	list.AddAttribute("coolAttribute", 69);
+	list.AddAttribute("sickAttribute", "420");
+	// retrieve
+	const char* woah = list.GetAttribute<const char*>("coolAttribute");
+
+	MW_TRACE("the attribute was {0}", woah);
 
 }
 
