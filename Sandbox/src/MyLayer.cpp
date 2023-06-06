@@ -76,7 +76,7 @@ void MyLayer::OnAttach() {
 	list.AddAttribute("coolAttribute", 69);
 	list.AddAttribute("sickAttribute", "420");
 	// retrieve
-	const char* woah = list.GetAttribute<const char*>("coolAttribute");
+	const char* woah = list.GetAttribute<const char*>("sickAttribute");
 
 	MW_TRACE("the attribute was {0}", woah);
 
